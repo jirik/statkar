@@ -66,15 +66,13 @@ export const loadTileLayerFromWmtsCapabilities = async ({
   const bboxDef = layerDef?.BoundingBox?.find((bboxDef: any) => {
     return bboxDef?.crs === bboxCrs;
   });
-  assertIsDefined(bboxDef);
 
   const bboxExtent = bboxDef?.extent as Extent;
-  assertIsDefined(bboxExtent);
 
   const tileLayer = new TileLayer({
     opacity: 1,
     source: new WMTS(options),
-    extent: bboxExtent,
+    extent: bboxExtent || undefined,
   });
   return tileLayer;
 };
